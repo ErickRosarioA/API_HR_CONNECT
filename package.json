@@ -1,0 +1,23 @@
+{
+  "name": "api_hr_connect",
+  "version": "1.0.0",
+  "description": "Este proyecto es un API que funcionará como una plataforma de gestión de recursos humanos. Permitirá a los usuarios autenticados, \r tanto Administradores como Empleados, llevar a cabo diversas operaciones relacionadas con la información de los empleados, \r las solicitudes de vacaciones y licencias, y la gestión de documentos.\r Tecnologías a utilizar:\r 1. Backend: El backend del sistema será desarrollado utilizando Node.js y Express.js. Estas tecnologías\r permiten crear de manera eficiente y rápida APIs robustas y escalables.\r 2. Base de datos: Se utilizará una base de datos relacional, como MySQL o PostgreSQL, para almacenar la\r información de los empleados, las solicitudes y otros datos relevantes del sistema. Se puede utilizar una biblioteca ORM como Sequelize para interactuar con la base de datos.\r 3. Autenticación: Para la autenticación de usuarios, se implementará la tecnología JSON Web Tokens (JWT). Al enviar las credenciales de inicio de sesión, el servidor generará un token JWT que será utilizado para autenticar las solicitudes posteriores.\r 4. Almacenamiento de archivos: Para el almacenamiento de archivos, como los CV en formato PDF o Word, se puede\r utilizar un servicio en la nube como AWS S3 o Google Cloud Storage. Estos servicios ofrecen almacenamiento seguro y permiten acceder a los archivos cuando sea necesario.\r 5. Documentación: Se utilizará Swagger para la documentación de la API.\r Swagger proporciona una interfaz interactiva y fácil de usar que permite a los usuarios explorar y probar los diferentes endpoints de la API.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErickRosarioA/API_HR_CONNECT.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ErickRosarioA/API_HR_CONNECT/issues"
+  },
+  "homepage": "https://github.com/ErickRosarioA/API_HR_CONNECT#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mssql": "^9.1.3"
+  }
+}

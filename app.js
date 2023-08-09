@@ -1,7 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const sql = require('mssql');
-const config = require('./models/sever');
+const config = require('./api/models/sever');
+const Server = require('./api/models/token');
+require('dotenv').config();
+
+
+const server = new Server();
+server.listen();
 
 const app = express();
 const port = 3000;
@@ -20,3 +26,6 @@ sql.connect(config, (err) => {
 app.listen(port, () => {
   console.log(`Servidor corriendo en el puerto ${port}`);
 });
+
+
+

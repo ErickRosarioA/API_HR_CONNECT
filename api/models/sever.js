@@ -1,7 +1,7 @@
 module.exports = {
     user: 'cesar',
-    password: 'ce123456',
-    server: 'NB-5P-GTIC-49\\SQLEXPRESS',
+    password: 'Ce123456',
+    server: 'localhost',
     database: 'ApiHRConnect',
     options:{
         trustedconnection: true,

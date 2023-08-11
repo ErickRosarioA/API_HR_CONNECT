@@ -38,7 +38,9 @@ CREATE TABLE Usuarios (
     ID INT PRIMARY KEY,
     NombreUsuario VARCHAR(50),
     Contraseña VARCHAR(100),
-    Rol VARCHAR(20)
+    RolID INT,
+	FOREIGN KEY (RolID) REFERENCES Roles(ID)
+
 );
 CREATE TABLE Documentos (
     ID INT PRIMARY KEY,
@@ -52,6 +54,12 @@ CREATE TABLE Documentos (
 CREATE TABLE TiposDocumentos (
     ID INT PRIMARY KEY,
     TipoDocumento VARCHAR(50)
+);
+
+CREATE TABLE Roles
+(
+    ID INT PRIMARY KEY,
+    Descripcion VARCHAR(50),	
 );
 
 INSERT INTO TiposDocumentos (ID, TipoDocumento)

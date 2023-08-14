@@ -3,6 +3,27 @@ const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
 
+//Swagger 
+const swaggerUI = require("swagger-ui-express");
+const swaggerjsDoc = require("swagger-jsdoc");
+const path = require("path");
+const swaggerSpecifications = {
+  definition :{
+    openapi:"3.1.1",
+    info:{
+      title:"Api HR Connect Documentation",
+      version:"1.0.0"
+    },
+    servers:[
+      {
+        url:"http://localhost:4443"
+      }
+    ]
+
+  },
+  apis:[`${path.join(__dirname, "./routes/*.js")}`]
+}
+
 
 class Server {
   constructor() {
@@ -29,8 +50,12 @@ class Server {
     // Trata de parsear los datos que vengan en el request
     this.app.use(express.json());
 
+    //Swagger use
+    this.app.use("/api-doc",swaggerUI.serve, swaggerUI.setup(swaggerjsDoc(swaggerSpecifications)))
+
     // Directorio publico
     this.app.use(express.static("public"));
+
   }
 
   routes() {

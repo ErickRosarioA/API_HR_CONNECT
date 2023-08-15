@@ -51,7 +51,7 @@ class Server {
     this.app.use(express.json());
 
     //Swagger use
-    this.app.use("/api-doc",swaggerUI.serve, swaggerUI.setup(swaggerjsDoc(swaggerSpecifications)))
+    this.app.use("/api-docs",swaggerUI.serve, swaggerUI.setup(swaggerjsDoc(swaggerSpecifications)))
 
     // Directorio publico
     this.app.use(express.static("public"));

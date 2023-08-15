@@ -1,5 +1,5 @@
-CREATE DATABASE ApiHRConnect1
-USE ApiHRConnect1
+CREATE DATABASE ApiHRConnect
+USE ApiHRConnect
 
 -- Crear tabla de Departamento
 CREATE TABLE Departamentos(
@@ -69,7 +69,7 @@ INSERT INTO TiposDocumentos (TipoDocumento)
 VALUES
     ('CV'),
     ('Certificados'),
-    ('Títulos'),
+    ('TÃ­tulos'),
     ('Otros');
 
 INSERT INTO Departamentos(Descripcion)

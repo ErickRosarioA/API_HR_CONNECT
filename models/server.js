@@ -30,8 +30,14 @@ class Server {
     this.app = express();
     this.port = process.env.PORT;
     this.path = {
-      generateToken: "/api/token",
-      empleados: "/api/empleados"
+      empleados: "/api/empleados",
+      departamentos: "/api/departamentos",
+      tipodocumento: "/api/tipodocumento",
+      vacaciones: "/api/vacaciones",
+      licencias: "/api/licencias",
+      usuarios: "/api/usuarios",
+      roles: "/api/roles",
+      auth: "/api/auth",
     };
 
 
@@ -59,8 +65,14 @@ class Server {
   }
 
   routes() {
-    this.app.use(this.path.generateToken, require("../routes/token.routes"));
     this.app.use(this.path.empleados, require("../routes/empleado.routes"));
+    this.app.use(this.path.departamentos, require("../routes/departamento.routes"));
+    this.app.use(this.path.tipodocumento, require("../routes/tipodocumento.routes"));
+    this.app.use(this.path.vacaciones, require("../routes/vacaciones.routes"));
+    this.app.use(this.path.licencias, require("../routes/licencia.routes"));
+    this.app.use(this.path.usuarios, require("../routes/usuario.routes"));
+    this.app.use(this.path.roles, require("../routes/rol.routes"));
+    this.app.use(this.path.auth, require("../routes/login.routes"));
   }
 
   listen() {

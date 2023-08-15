@@ -5,7 +5,7 @@ const sql = require('mssql');
 const getEmpleados = async (req,res) => {
     try {
       const pool = await sql.connect(config);
-      const result = await pool.request().query('SELECT * FROM Empleados');
+      const result = await pool.request().query('SELECT e.DepartamentoID,d.Descripcion,e.TipoDocumentoID,t.TipoDocumento,e.Nombre,e.Cedula,e.FechaContratacion,e.Direccion,e.Telefono,e.Celular,e.Salario,e.Rutadocumento  FROM Empleados e INNER JOIN Departamentos d on e.DepartamentoID = d.ID INNER JOIN TIposDocumentos t on TipoDocumentoID = t.ID');
       res.send(result.recordset);
     } catch (err) {
       console.error(err);
@@ -22,7 +22,7 @@ const getEmpleados = async (req,res) => {
       const result = await pool
         .request()
         .input('id', sql.Int, id)
-        .query('SELECT * FROM Empleados WHERE id = @id');
+        .query('SELECT e.DepartamentoID,d.Descripcion,e.TipoDocumentoID,t.TipoDocumento,e.Nombre,e.Cedula,e.FechaContratacion,e.Direccion,e.Telefono,e.Celular,e.Salario,e.Rutadocumento  FROM Empleados e INNER JOIN Departamentos d on e.DepartamentoID = d.ID INNER JOIN TIposDocumentos t on TipoDocumentoID = t.ID WHERE e.id = @id');
       if (result.recordset.length === 0) {
         res.status(404).send('Empleado no encontrado');
       } else {
@@ -34,14 +34,21 @@ const getEmpleados = async (req,res) => {
     }
   };
   
-//   // Agregar un nuevo empleado
+// Agregar un nuevo empleado
   const postEmpleados = async (req, res) => {
-    const {Nombre,Departamento,FechaContratacion,Direccion,Telefono,Celular,Salario} = req.body;
+    const {DepartamentoID,TipoDocumentoID,Nombre,Cedula,FechaContratacion,Direccion,Telefono,Celular,Salario, Rutadocumento} = req.body;
     try {
       const pool = await sql.connect(config);
-      const result = await pool
+
+      const cedula = await pool.request().query(`SELECT * FROM Empleados where Cedula = '${Cedula}'`);
+
+      if(cedula.recordset.length !== 0){
+        return res.status(400).json({msg:"El empleado ya existe"})
+      }
+      
+      await pool
         .request()
-        .query(`INSERT INTO Empleados (Nombre,Departamento,FechaContratacion,Direccion,Telefono,Celular,Salario) VALUES ('${Nombre}', '${Departamento}', '${FechaContratacion}', '${Direccion}', '${Telefono}', '${Celular}', '${Salario}')`);
+        .query(`INSERT INTO Empleados (DepartamentoID,TipoDocumentoID, Nombre,Cedula,FechaContratacion,Direccion,Telefono,Celular,Salario, Rutadocumento) VALUES ('${DepartamentoID}', '${TipoDocumentoID}', '${Nombre}', '${Cedula}','${FechaContratacion}','${Direccion}', '${Telefono}', '${Celular}', '${Salario}', '${Rutadocumento}')`);
       res.send('Empleado agregado');
     } catch (err) {
       console.error(err);
@@ -49,25 +56,28 @@ const getEmpleados = async (req,res) => {
     }
   };
   
-//   // Actualizar un empleado existente
+// Actualizar un empleado existente
   const putEmpleados = async (req, res) => {
     const { id } = req.params;
-    const {Nombre,Departamento,FechaContratacion,Direccion,Telefono,Celular,Salario} = req.body;
+    const {DepartamentoID,TipoDocumentoID, Nombre, Cedula,FechaContratacion,Direccion,Telefono,Celular,Salario, Rutadocumento} = req.body;
 
     try {
       const pool = await sql.connect(config);
       const result = await pool
         .request()
         .input('ID', sql.Int, id)
+        .input('DepartamentoID', sql.Int, DepartamentoID)
+        .input('TipoDocumentoID', sql.Int, TipoDocumentoID)
         .input('Nombre', sql.NVarChar(100), Nombre)
-        .input('Departamento', sql.NVarChar(50), Departamento)
+        .input('Cedula', sql.NVarChar(11), Cedula)
         .input('FechaContratacion', sql.DateTime, FechaContratacion)
         .input('Direccion', sql.NVarChar(100), Direccion)
         .input('Telefono', sql.NVarChar(100), Telefono)
         .input('Celular', sql.NVarChar(100), Celular)
         .input('Salario', sql.Decimal(10,2), Salario)
+        .input('Rutadocumento', sql.NVarChar(sql.MAX), Rutadocumento)
         .query(
-          `UPDATE Empleados SET Nombre = '${Nombre}', Departamento = '${Departamento}', FechaContratacion = '${FechaContratacion}', Direccion = '${Direccion}', Telefono = '${Telefono}', Celular = '${Celular}', Salario = '${Salario}' WHERE id = @id`);
+          `UPDATE Empleados SET   DepartamentoID = ${DepartamentoID}, TipoDocumentoID = '${TipoDocumentoID}',Nombre = '${Nombre}',Cedula = '${Cedula}', FechaContratacion = '${FechaContratacion}', Direccion = '${Direccion}', Telefono = '${Telefono}', Celular = '${Celular}', Salario = '${Salario}', Rutadocumento = '${Rutadocumento}' WHERE id = @id`);
       if (result.rowsAffected[0] === 0) {
         res.status(404).send('empleado no encontrado');
       } else {

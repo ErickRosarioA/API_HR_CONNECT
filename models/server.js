@@ -6,7 +6,6 @@ const cors = require("cors");
 //Swagger 
 const swaggerUI = require("swagger-ui-express");
 const swaggerjsDoc = require("swagger-jsdoc");
-const path = require("path");
 const swaggerSpecifications = {
   definition :{
     openapi:"3.1.1",
@@ -21,8 +20,9 @@ const swaggerSpecifications = {
     ]
 
   },
-  apis:[`${path.join(__dirname, "./routes/*.js")}`]
-}
+  basePath:"/",
+  apis:["./routes/*.js"],
+};
 
 
 class Server {

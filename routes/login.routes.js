@@ -7,7 +7,7 @@ const router = Router();
  * @swagger
  * components:
  *   schemas:
- *     LoginResponse:
+ *     AuthResponse:
  *       type: object
  *       properties:
  *         user:
@@ -26,7 +26,7 @@ const router = Router();
 
 /**
  * @swagger
- * /api/login:
+ * /api/auth:
  *   post:
  *     summary: Iniciar sesión
  *     description: Iniciar sesión con credenciales de usuario.
@@ -52,7 +52,7 @@ const router = Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/LoginResponse'
+ *               $ref: '#/components/schemas/AuthResponse'
  *       400:
  *         description: Credenciales incorrectas
  *       500:

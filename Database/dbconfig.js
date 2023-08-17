@@ -1,14 +1,14 @@
 const config = {
-  user: 'cesar',
-  password: 'Ce123456',
-  server: 'localhost',
-  database: 'ApiHRConnect',
-  options:{
-      trustedconnection: true,
-      enableArithAbort: true,
-      instancename : 'SQLEXPRESS',
-      trustServerCertificate: true,
-  },
-};
+    user: 'localhost',
+    password: 'Erick1234',
+    server: '\\ERICKSERVER',
+    database: 'ApiHRConnect',
+    options:{
+        trustedconnection: true,
+        enableArithAbort: true,
+        instancename : 'MSSQL',
+        trustServerCertificate: true,
+    },
+  };
 
 module.exports = {config}
